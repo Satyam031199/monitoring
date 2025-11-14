@@ -1,4 +1,16 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - prometheus
+    networks:
+      - app-network
+
   prometheus:
     image: prom/prometheus
     container_name: prometheus
@@ -6,3 +18,9 @@ services:
       - ./prometheus-config.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

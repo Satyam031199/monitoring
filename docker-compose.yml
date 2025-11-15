@@ -31,6 +31,14 @@ services:
       - app
     networks:
       - app-network
+  
+  grafana-loki:
+    image: grafana/loki:2.4.1
+    container_name: grafana-loki
+    ports:
+      - "3100:3100"
+    networks:
+      - app-network
 
 networks:
   app-network:
